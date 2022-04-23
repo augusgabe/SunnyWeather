@@ -9,6 +9,13 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 object SunnyWeatherNetWork {
+    private val weatherService = ServiceCreator.create<WeatherService>()
+    suspend fun getDailyWeather(lng:String,lat:String)=
+        weatherService.getDailyWeather(lng, lat).await()
+
+    suspend fun getRealtimeWeather(lng:String,lat: String)=
+        weatherService.getRealtimeWeather(lng, lat).await()
+
     private val placeService = ServiceCreator.create<PlaceService>()
 
 //    suspend 关键字可把任意函数声明为挂起函数，但无法给其提供协程作用域，调用await()返回协程执行结果，否则返回为Job对象
